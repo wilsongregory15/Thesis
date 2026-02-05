@@ -10,8 +10,7 @@ from datetime import timedelta
 from darts import TimeSeries
 from darts.utils.missing_values import fill_missing_values
 from pathlib import Path
-
-APP_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 # ==========================================
 # 1. CONFIGURATION & SETUP
 # ==========================================
@@ -55,13 +54,13 @@ SCENARIO_DETAILS = {
 
 # ⚠️ UPDATE PATHS BELOW TO MATCH YOUR ACTUAL FOLDERS
 RESULTS_FOLDERS = {
-    "TSMixer": APP_DIR / "results/tsmixer_results",
-    "TFT": APP_DIR / "results/tft_results",
-    "RandomForest": APP_DIR / "results/rf_results"
+    "TSMixer": BASE_DIR / "results/tsmixer_results",
+    "TFT": BASE_DIR / "results/tft_results",
+    "RandomForest": BASE_DIR / "results/rf_results"
 }
 
-RF_MODEL_PATH = APP_DIR / "models/rf_models_final"
-OOS_DATA_PATH = APP_DIR / "data/final_data_saved_model"
+RF_MODEL_PATH = BASE_DIR / "models/rf_models_final"
+OOS_DATA_PATH = BASE_DIR / "data/final_data_saved_model"
 
 TARGET_FILE_MAP = {
     "IHSG": "ihsg_final.csv",
