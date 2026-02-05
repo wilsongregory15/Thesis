@@ -9,7 +9,9 @@ import joblib
 from datetime import timedelta
 from darts import TimeSeries
 from darts.utils.missing_values import fill_missing_values
+from pathlib import Path
 
+APP_DIR = Path(__file__).resolve().parent
 # ==========================================
 # 1. CONFIGURATION & SETUP
 # ==========================================
@@ -53,13 +55,13 @@ SCENARIO_DETAILS = {
 
 # ⚠️ UPDATE PATHS BELOW TO MATCH YOUR ACTUAL FOLDERS
 RESULTS_FOLDERS = {
-    "TSMixer": "results/tsmixer_results",
-    "TFT": "results/tft_results",
-    "RandomForest": "results/rf_results"
+    "TSMixer": APP_DIR / "results/tsmixer_results",
+    "TFT": APP_DIR / "results/tft_results",
+    "RandomForest": APP_DIR / "results/rf_results"
 }
 
-RF_MODEL_PATH = "models/rf_models_final"
-OOS_DATA_PATH = "data/final_data_saved_model"
+RF_MODEL_PATH = APP_DIR / "models/rf_models_final"
+OOS_DATA_PATH = APP_DIR / "data/final_data_saved_model"
 
 TARGET_FILE_MAP = {
     "IHSG": "ihsg_final.csv",
@@ -209,10 +211,10 @@ def generate_oos_predictions_darts(
 def load_all_results(folders_dict):
     df_list = []
     for model_name, folder_path in folders_dict.items():
-        if not os.path.exists(folder_path):
+        if not folder_path.exists():
             continue
             
-        all_files = glob.glob(os.path.join(folder_path, "*.csv"))
+        all_files = list(folder_path.glob("*.csv"))
         
         for filename in all_files:
             try:
